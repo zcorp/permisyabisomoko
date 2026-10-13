@@ -1,0 +1,11 @@
+# Publish only the generated GitHub Pages site and deployment documentation.
+*
+!.gitignore
+!README.md
+!.github/
+!.github/workflows/
+!.github/workflows/ci-deploy.yml
+!dist/
+!dist/permis-ya-biso-moko/
+!dist/permis-ya-biso-moko/browser/
+!dist/permis-ya-biso-moko/browser/**
