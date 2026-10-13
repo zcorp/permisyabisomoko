@@ -31,16 +31,19 @@ jobs:
           test -s dist/permis-ya-biso-moko/browser/index.html
           test -s dist/permis-ya-biso-moko/browser/404.html
           test -f dist/permis-ya-biso-moko/browser/.nojekyll
-          test -s dist/permis-ya-biso-moko/browser/CNAME
-          test "$(cat dist/permis-ya-biso-moko/browser/CNAME)" = "permisyabisomoko.fr"
+          grep -Fq '<base href="/permisyabisomoko/">' dist/permis-ya-biso-moko/browser/index.html
 
-      - name: Configure Pages
-        uses: actions/configure-pages@v6
+      - name: Prepare project-site artifact
+        run: |
+          mkdir -p "$RUNNER_TEMP/pages-artifact"
+          cp -R dist/permis-ya-biso-moko/browser/. "$RUNNER_TEMP/pages-artifact/"
+          rm -f "$RUNNER_TEMP/pages-artifact/CNAME"
+          test ! -e "$RUNNER_TEMP/pages-artifact/CNAME"
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
         with:
-          path: dist/permis-ya-biso-moko/browser
+          path: ${{ runner.temp }}/pages-artifact
 
       - name: Deploy to GitHub Pages
         id: deployment
