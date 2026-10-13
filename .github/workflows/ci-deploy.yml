@@ -31,14 +31,14 @@ jobs:
           test -s dist/permis-ya-biso-moko/browser/index.html
           test -s dist/permis-ya-biso-moko/browser/404.html
           test -f dist/permis-ya-biso-moko/browser/.nojekyll
-          grep -Fq '<base href="/permisyabisomoko/">' dist/permis-ya-biso-moko/browser/index.html
+          test "$(cat dist/permis-ya-biso-moko/browser/CNAME)" = "permisyabisomoko.fr"
+          grep -Fq '<base href="/">' dist/permis-ya-biso-moko/browser/index.html
 
-      - name: Prepare project-site artifact
+      - name: Prepare custom-domain artifact
         run: |
           mkdir -p "$RUNNER_TEMP/pages-artifact"
           cp -R dist/permis-ya-biso-moko/browser/. "$RUNNER_TEMP/pages-artifact/"
-          rm -f "$RUNNER_TEMP/pages-artifact/CNAME"
-          test ! -e "$RUNNER_TEMP/pages-artifact/CNAME"
+          test "$(cat "$RUNNER_TEMP/pages-artifact/CNAME")" = "permisyabisomoko.fr"
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5

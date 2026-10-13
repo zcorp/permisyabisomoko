@@ -54,9 +54,6 @@ Tout est dans **un seul fichier** : [`src/app/core/config/site-config.ts`](src/a
 
 Le dépôt GitHub ne contient que le build statique de production, le workflow de publication et ce README. Les sources restent localement ignorées par `.gitignore`.
 
-1. Construire et vérifier le site dans Docker pour l'URL de projet : `./scripts/build.sh --base-href /permisyabisomoko/`.
-2. Envoyer le commit sur `main`. GitHub Actions publie le build sans installer Node et sans reconstruire l'application. Le workflow retire `CNAME` de l'artefact afin que l'URL `zcorp.github.io/permisyabisomoko/` fonctionne tant que le domaine personnalisé n'est pas configuré.
-3. Dans GitHub, garder **Settings → Pages → Build and deployment → Source → GitHub Actions**.
-4. Pour utiliser ensuite `https://permisyabisomoko.fr`, configurer ce domaine dans **Settings → Pages → Custom domain**, vérifier les DNS OVH et activer HTTPS lorsque GitHub le propose. Il faudra alors générer un nouveau build avec `./scripts/build.sh` (base `/`) et adapter le workflow pour inclure le fichier `CNAME` dans l'artefact.
+La production utilise `https://permisyabisomoko.fr`. Pour publier une nouvelle version, construire avec `./scripts/build.sh` (base `/`), puis pousser le dossier `dist/permis-ya-biso-moko/browser` sur `main`. GitHub Actions publie ce build, y compris son fichier `CNAME`, sans installer Node ni reconstruire l'application.
 
 Après toute modification du site, reconstruire avec Docker et inclure le dossier `dist/permis-ya-biso-moko/browser` dans le commit de publication.
